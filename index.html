@@ -87,7 +87,9 @@
     </div>
     
     <h1 id="question">Will you be my Valentine? 🤗</h1>
-    <p id="small-text">Babyyy, ha bolo naaa...</p> <div class="btn-group" id="actions">
+    <p id="small-text">Babyyy, ha bolo naaa...</p>
+    
+    <div class="btn-group" id="actions">
         <button class="btn" id="yesBtn" onclick="handleYes()">Yes</button>
         <button class="btn" id="noBtn" onclick="handleNo()">No</button>
     </div>
@@ -98,15 +100,18 @@
 <script>
     let currentStep = 0;
     let yesButtonSize = 1.3;
+    let isLastStep = false;
 
     const stages = [
-        { q: "Soch le achhe se! 🙄", t: "itni jaldii nhi mat bolo", g: "22050818", type: 'gif' }, // Updated line
-        { q: "Ek baar aur soch lo! 🥺", t: "mana ki maii thodaa gandaa hu", g: "15195810", type: 'gif' }, // Updated line
+        { q: "Soch le achhe se! 🙄", t: "itni jaldii nhi mat bolo", g: "22050818", type: 'gif' },
+        { q: "Ek baar aur soch lo! 🥺", t: "mana ki maii thodaa gandaa hu", g: "15195810", type: 'gif' },
         { q: "Manja na! Kitna bhav khaegi 😭", t: "bht glt baat hai 😭", g: "15974530976611222074", type: 'gif' },
-        { q: "Ab to haan bolna hi padega 😎", t: "Ab naa krke dikhaaaa", g: "😤", type: 'emoji' } // Updated line
+        { q: "Ab to haan bolna hi padega 😎", t: "Ab naa krke dikhaaaa", g: "😤", type: 'emoji' }
     ];
 
     function handleNo() {
+        if (isLastStep) return; // Last step pe click disable kar diya
+
         if (currentStep < stages.length) {
             const stage = stages[currentStep];
             document.getElementById('question').innerText = stage.q;
@@ -119,6 +124,7 @@
 
             if(stage.type === 'emoji') {
                 document.getElementById('gif-box').innerHTML = stage.g;
+                isLastStep = true; // Mark as last step
                 makeNoButtonFly();
             } else {
                 document.getElementById('gif-box').innerHTML = `<div class="tenor-gif-embed" data-postid="${stage.g}" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>`;
@@ -155,18 +161,19 @@
         const noBtn = document.getElementById('noBtn');
         noBtn.style.position = 'fixed';
         
-        const moveBtn = () => {
+        const moveBtn = (e) => {
+            if (e) e.preventDefault();
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         };
 
+        // Button moves on hover and touch
         noBtn.addEventListener('mouseover', moveBtn);
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            moveBtn();
-        });
+        noBtn.addEventListener('touchstart', moveBtn);
+        // Extra safety: click karne par bhi bhaga do agar touch work na kare
+        noBtn.addEventListener('click', moveBtn);
     }
 </script>
 
