@@ -33,7 +33,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 150px; /* Big Emoji Size */
+            font-size: 150px; 
         }
         h1 {
             color: #000;
@@ -55,7 +55,7 @@
             gap: 25px;
             position: relative;
             width: 100%;
-            min-height: 150px; /* Space for growing button */
+            min-height: 150px;
         }
         .btn {
             background: white;
@@ -87,9 +87,7 @@
     </div>
     
     <h1 id="question">Will you be my Valentine? 🤗</h1>
-    <p id="small-text"> Babbyy haan nhiilo naaa...</p>
-    
-    <div class="btn-group" id="actions">
+    <p id="small-text">Babyyy, ha bolo naaa...</p> <div class="btn-group" id="actions">
         <button class="btn" id="yesBtn" onclick="handleYes()">Yes</button>
         <button class="btn" id="noBtn" onclick="handleNo()">No</button>
     </div>
@@ -99,13 +97,13 @@
 
 <script>
     let currentStep = 0;
-    let yesButtonSize = 1.3; // Initial size in rem
+    let yesButtonSize = 1.3;
 
     const stages = [
-        { q: "Soch le achhe se! 🙄", t: "itti jjldi mat bol🙄", g: "22050818", type: 'gif' },
-        { q: "Ek baar aur soch lo! 🥺", t: "Maana ki main thoda ganda hoon...", g: "15195810", type: 'gif' },
+        { q: "Soch le achhe se! 🙄", t: "itni jaldii nhi mat bolo", g: "22050818", type: 'gif' }, // Updated line
+        { q: "Ek baar aur soch lo! 🥺", t: "mana ki maii thodaa gandaa hu", g: "15195810", type: 'gif' }, // Updated line
         { q: "Manja na! Kitna bhav khaegi 😭", t: "bht glt baat hai 😭", g: "15974530976611222074", type: 'gif' },
-        { q: "Ab naa krke dikhaaaa 😎", t: "Haan bolna hi padega ab toh!", g: "😤", type: 'emoji' }
+        { q: "Ab to haan bolna hi padega 😎", t: "Ab naa krke dikhaaaa", g: "😤", type: 'emoji' } // Updated line
     ];
 
     function handleNo() {
@@ -114,7 +112,6 @@
             document.getElementById('question').innerText = stage.q;
             document.getElementById('small-text').innerText = stage.t;
             
-            // Yes button grows bigger each time
             yesButtonSize += 0.5; 
             const yesBtn = document.getElementById('yesBtn');
             yesBtn.style.fontSize = yesButtonSize + "rem";
@@ -132,7 +129,6 @@
     }
 
     function handleYes() {
-        // Confetti Celebration!
         confetti({
             particleCount: 150,
             spread: 70,
